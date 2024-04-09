@@ -185,16 +185,35 @@ internal data object SlashState : State {
 internal data object ChannelNameState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         when (val current = reader.consume()) {
-            in asciiAlphanumericUnderscoreDash -> {
-                tokenizer.emit(TokenCharacterType.Channel, reader.position)
-            }
-
-            else -> {
+            in emptyChar + eof -> {
                 tokenizer.accept()
                 tokenizer.switch(DataState)
                 reader.pushback()
             }
+
+            '/' -> {
+                // reject all the channel name
+                reader.pushback()
+                val start = findBackwardSlash(reader)
+                tokenizer.emitRange(TokenCharacterType.Character, start, reader.position)
+                tokenizer.switch(DataState)
+            }
+
+            else -> {
+                tokenizer.emit(TokenCharacterType.Channel, reader.position)
+            }
         }
+    }
+    private fun findBackwardSlash(reader: Reader): Int {
+        var position = reader.position
+        while (position > 0) {
+            if (reader.readAt(position - 1) == '/') {
+                return position - 1
+            }
+            position--
+        }
+        // is at the beginning of the string
+        return 0
     }
 }
 
