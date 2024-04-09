@@ -285,4 +285,34 @@ class TokenizerTest {
             result,
         )
     }
+
+    @Test
+    fun testMixed4() {
+        val tokenizer = Tokenizer()
+        val content = "(she/her) Web3 enthusiast. Learning in Public. Built /animeoutcasts Unofficial Hambassasor |General of the North In /japan and /kyoto for /sakura"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        val expected = "(".map { TokenCharacterType.Character } +
+            "she".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Character } +
+            "her".map { TokenCharacterType.Character } +
+            ") Web".map { TokenCharacterType.Character } +
+            "3 enthusiast. Learning in Public. Built ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "animeoutcasts".map { TokenCharacterType.Channel } +
+            " Unofficial Hambassasor |General of the North In ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "japan".map { TokenCharacterType.Channel } +
+            " and ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "kyoto".map { TokenCharacterType.Channel } +
+            " for ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "sakura".map { TokenCharacterType.Channel } +
+            listOf(TokenCharacterType.Eof)
+        assertContentEquals(
+            expected,
+            result,
+        )
+    }
 }

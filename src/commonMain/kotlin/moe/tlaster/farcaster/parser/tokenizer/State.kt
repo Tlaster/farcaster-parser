@@ -235,6 +235,7 @@ internal data object HeadlessUrlState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         when (val current = reader.consume()) {
             !in asciiAlphanumeric + '-' + '.' -> {
+                reader.pushback()
                 val start = findBackwardValidUrl(reader)
                 val value = reader.readAt(start, reader.position - start).split('.').lastOrNull()
                 if (value != null && DomainList.any { it.equals(value, ignoreCase = true) }) {
@@ -244,7 +245,6 @@ internal data object HeadlessUrlState : State {
                 }
                 tokenizer.accept()
                 tokenizer.switch(DataState)
-                reader.pushback()
             }
 
             else -> {
