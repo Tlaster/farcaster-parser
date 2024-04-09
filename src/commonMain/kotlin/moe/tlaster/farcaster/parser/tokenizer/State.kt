@@ -15,6 +15,7 @@ private const val TAB = '\u0009'
 private const val LF = '\u000A'
 private val emptyChar = listOf(TAB, LF, '\u000C', '\u0020')
 private val asciiAlphanumericAndEmpty = asciiAlphanumeric + ' ' + TAB + LF
+private val urlChar = asciiAlphanumeric + "-._~:/?#[]@!\$&'()*+,;=".toList()
 
 private fun prevIsSpace(reader: Reader): Boolean {
     // position == 1 means it is at the beginning of the string, since we consume the first character
@@ -200,7 +201,7 @@ internal data object ChannelNameState : State {
 private fun findBackwardValidUrl(reader: Reader): Int {
     var position = reader.position
     while (position > 0) {
-        if (reader.readAt(position - 1) !in asciiAlphanumeric + '-' + '.') {
+        if (reader.readAt(position - 1) !in urlChar) {
             // not -1 because we want the position right after the text
             return position
         }
@@ -234,10 +235,12 @@ internal data object DotState : State {
 internal data object HeadlessUrlState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         when (val current = reader.consume()) {
-            !in asciiAlphanumeric + '-' + '.' -> {
+            !in urlChar -> {
                 reader.pushback()
                 val start = findBackwardValidUrl(reader)
-                val value = reader.readAt(start, reader.position - start).split('.').lastOrNull()
+                val value = reader.readAt(start, reader.position - start).split('.').lastOrNull()?.takeWhile {
+                    it in asciiAlpha
+                }
                 if (value != null && DomainList.any { it.equals(value, ignoreCase = true) }) {
                     tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
                 } else {
