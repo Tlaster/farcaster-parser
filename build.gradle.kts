@@ -96,5 +96,5 @@ mavenPublishing {
 }
 
 ktlint {
-    version.set("1.0.1")
+    version.set("0.50.0")
 }
