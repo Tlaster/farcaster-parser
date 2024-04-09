@@ -222,7 +222,7 @@ class TokenizerTest {
         assertEquals(content.length, result.size - 1)
         assertContentEquals(
             content.map { TokenCharacterType.Url } + TokenCharacterType.Eof,
-            result
+            result,
         )
     }
 
@@ -233,27 +233,27 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "test ".map { TokenCharacterType.Character } +
-                "test.com".map { TokenCharacterType.Url } +
-                " ".map { TokenCharacterType.Character } +
-                "@".map { TokenCharacterType.UserName } +
-                "test".map { TokenCharacterType.UserName } +
-                " ".map { TokenCharacterType.Character } +
-                "\$".map { TokenCharacterType.Cash } +
-                "test".map { TokenCharacterType.Cash } +
-                " ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "test".map { TokenCharacterType.Channel } +
-                " ".map { TokenCharacterType.Character } +
-                "test".map { TokenCharacterType.TwitterUser } +
-                ".twitter".map { TokenCharacterType.TwitterUser } +
-                " ".map { TokenCharacterType.Character } +
-                "test".map { TokenCharacterType.LensterUser } +
-                ".lens".map { TokenCharacterType.LensterUser } +
-                " ".map { TokenCharacterType.Character } +
-                "https://test.com".map { TokenCharacterType.Url } +
-                " ".map { TokenCharacterType.Character } +
-                "test.host.com".map { TokenCharacterType.Url } +
-                listOf(TokenCharacterType.Eof)
+            "test.com".map { TokenCharacterType.Url } +
+            " ".map { TokenCharacterType.Character } +
+            "@".map { TokenCharacterType.UserName } +
+            "test".map { TokenCharacterType.UserName } +
+            " ".map { TokenCharacterType.Character } +
+            "\$".map { TokenCharacterType.Cash } +
+            "test".map { TokenCharacterType.Cash } +
+            " ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "test".map { TokenCharacterType.Channel } +
+            " ".map { TokenCharacterType.Character } +
+            "test".map { TokenCharacterType.TwitterUser } +
+            ".twitter".map { TokenCharacterType.TwitterUser } +
+            " ".map { TokenCharacterType.Character } +
+            "test".map { TokenCharacterType.LensterUser } +
+            ".lens".map { TokenCharacterType.LensterUser } +
+            " ".map { TokenCharacterType.Character } +
+            "https://test.com".map { TokenCharacterType.Url } +
+            " ".map { TokenCharacterType.Character } +
+            "test.host.com".map { TokenCharacterType.Url } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
             result,
@@ -268,11 +268,11 @@ class TokenizerTest {
         assertEquals(content.length, result.size - 1)
         val expected =
             "crypto-anarchist · DeFi degen · DeSoc explorer, advisor · hosting ".map { TokenCharacterType.Character } +
-                    "/".map { TokenCharacterType.Channel } +
-                    "luo".map { TokenCharacterType.Channel } +
-                    " · writing ".map { TokenCharacterType.Character } +
-                    "0xluo.eth.limo".map { TokenCharacterType.Url } +
-                    listOf(TokenCharacterType.Eof)
+                "/".map { TokenCharacterType.Channel } +
+                "luo".map { TokenCharacterType.Channel } +
+                " · writing ".map { TokenCharacterType.Character } +
+                "0xluo.eth.limo".map { TokenCharacterType.Url } +
+                listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
             result,
@@ -286,13 +286,13 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "Mask.io".map { TokenCharacterType.Url } +
-                " / ".map { TokenCharacterType.Character } +
-                "suji_yan".map { TokenCharacterType.TwitterUser } +
-                ".twitter".map { TokenCharacterType.TwitterUser } +
-                " checkout ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "firefly-garden".map { TokenCharacterType.Channel } +
-                listOf(TokenCharacterType.Eof)
+            " / ".map { TokenCharacterType.Character } +
+            "suji_yan".map { TokenCharacterType.TwitterUser } +
+            ".twitter".map { TokenCharacterType.TwitterUser } +
+            " checkout ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "firefly-garden".map { TokenCharacterType.Channel } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
             result,
@@ -307,23 +307,23 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "(".map { TokenCharacterType.Character } +
-                "she".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Character } +
-                "her".map { TokenCharacterType.Character } +
-                ") Web".map { TokenCharacterType.Character } +
-                "3 enthusiast. Learning in Public. Built ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "animeoutcasts".map { TokenCharacterType.Channel } +
-                " Unofficial Hambassasor |General of the North In ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "japan".map { TokenCharacterType.Channel } +
-                " and ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "kyoto".map { TokenCharacterType.Channel } +
-                " for ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "sakura".map { TokenCharacterType.Channel } +
-                listOf(TokenCharacterType.Eof)
+            "she".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Character } +
+            "her".map { TokenCharacterType.Character } +
+            ") Web".map { TokenCharacterType.Character } +
+            "3 enthusiast. Learning in Public. Built ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "animeoutcasts".map { TokenCharacterType.Channel } +
+            " Unofficial Hambassasor |General of the North In ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "japan".map { TokenCharacterType.Channel } +
+            " and ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "kyoto".map { TokenCharacterType.Channel } +
+            " for ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "sakura".map { TokenCharacterType.Channel } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
             result,
@@ -338,23 +338,23 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "dad • sr full stack dev • Building ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "360".map { TokenCharacterType.Channel } +
-                " • ENS degen • ".map { TokenCharacterType.Character } +
-                "vision.io/".map { TokenCharacterType.Url } +
-                "0x".map { TokenCharacterType.Url } +
-                "/".map { TokenCharacterType.Url } +
-                "dos".map { TokenCharacterType.Url } +
-                " • ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "journal".map { TokenCharacterType.Channel } +
-                " ".map { TokenCharacterType.Character } +
-                "/black".map { TokenCharacterType.Channel } +
-                " ".map { TokenCharacterType.Character } +
-                "/btw".map { TokenCharacterType.Channel } +
-                " ".map { TokenCharacterType.Character } +
-                "/king".map { TokenCharacterType.Channel } +
-                listOf(TokenCharacterType.Eof)
+            "/".map { TokenCharacterType.Channel } +
+            "360".map { TokenCharacterType.Channel } +
+            " • ENS degen • ".map { TokenCharacterType.Character } +
+            "vision.io/".map { TokenCharacterType.Url } +
+            "0x".map { TokenCharacterType.Url } +
+            "/".map { TokenCharacterType.Url } +
+            "dos".map { TokenCharacterType.Url } +
+            " • ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "journal".map { TokenCharacterType.Channel } +
+            " ".map { TokenCharacterType.Character } +
+            "/black".map { TokenCharacterType.Channel } +
+            " ".map { TokenCharacterType.Character } +
+            "/btw".map { TokenCharacterType.Channel } +
+            " ".map { TokenCharacterType.Character } +
+            "/king".map { TokenCharacterType.Channel } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
             result,
