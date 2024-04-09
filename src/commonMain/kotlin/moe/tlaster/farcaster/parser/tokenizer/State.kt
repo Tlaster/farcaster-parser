@@ -16,7 +16,6 @@ private const val LF = '\u000A'
 private val emptyChar = listOf(TAB, LF, '\u000C', '\u0020')
 private val asciiAlphanumericAndEmpty = asciiAlphanumeric + ' ' + TAB + LF
 
-
 private fun prevIsSpace(reader: Reader): Boolean {
     // position == 1 means it is at the beginning of the string, since we consume the first character
     return reader.position == 1 || reader.readAt(reader.position - 2) in emptyChar
@@ -34,7 +33,6 @@ private fun findBackwardSpace(reader: Reader): Int {
     // is at the beginning of the string
     return 0
 }
-
 
 internal sealed interface State {
     fun read(tokenizer: Tokenizer, reader: Reader)

@@ -1481,5 +1481,5 @@ internal val DomainList = listOf(
     "ZM",
     "ZONE",
     "ZUERICH",
-    "ZW"
+    "ZW",
 )

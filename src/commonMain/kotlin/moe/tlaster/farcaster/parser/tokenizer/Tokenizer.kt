@@ -1,6 +1,5 @@
 package moe.tlaster.farcaster.parser.tokenizer
 
-
 internal class Tokenizer(
     val enableDotInUserName: Boolean = true,
 ) {

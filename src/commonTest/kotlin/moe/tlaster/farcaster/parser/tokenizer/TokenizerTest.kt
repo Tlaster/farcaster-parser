@@ -1,6 +1,5 @@
 package moe.tlaster.farcaster.parser.tokenizer
 
-
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
 import kotlin.test.assertEquals
@@ -222,30 +221,30 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "test ".map { TokenCharacterType.Character } +
-                "test.com".map { TokenCharacterType.Url } +
-                " ".map { TokenCharacterType.Character } +
-                "@".map { TokenCharacterType.UserName } +
-                "test".map { TokenCharacterType.UserName } +
-                " ".map { TokenCharacterType.Character } +
-                "\$".map { TokenCharacterType.Cash } +
-                "test".map { TokenCharacterType.Cash } +
-                " ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "test".map { TokenCharacterType.Channel } +
-                " ".map { TokenCharacterType.Character } +
-                "test".map { TokenCharacterType.TwitterUser } +
-                ".twitter".map { TokenCharacterType.TwitterUser } +
-                " ".map { TokenCharacterType.Character } +
-                "test".map { TokenCharacterType.LensterUser } +
-                ".lens".map { TokenCharacterType.LensterUser } +
-                " ".map { TokenCharacterType.Character } +
-                "https://test.com".map { TokenCharacterType.Url } +
-                " ".map { TokenCharacterType.Character } +
-                "test.host.com".map { TokenCharacterType.Url } +
-                listOf(TokenCharacterType.Eof)
+            "test.com".map { TokenCharacterType.Url } +
+            " ".map { TokenCharacterType.Character } +
+            "@".map { TokenCharacterType.UserName } +
+            "test".map { TokenCharacterType.UserName } +
+            " ".map { TokenCharacterType.Character } +
+            "\$".map { TokenCharacterType.Cash } +
+            "test".map { TokenCharacterType.Cash } +
+            " ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "test".map { TokenCharacterType.Channel } +
+            " ".map { TokenCharacterType.Character } +
+            "test".map { TokenCharacterType.TwitterUser } +
+            ".twitter".map { TokenCharacterType.TwitterUser } +
+            " ".map { TokenCharacterType.Character } +
+            "test".map { TokenCharacterType.LensterUser } +
+            ".lens".map { TokenCharacterType.LensterUser } +
+            " ".map { TokenCharacterType.Character } +
+            "https://test.com".map { TokenCharacterType.Url } +
+            " ".map { TokenCharacterType.Character } +
+            "test.host.com".map { TokenCharacterType.Url } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
-            result
+            result,
         )
     }
 
@@ -256,14 +255,14 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "crypto-anarchist · DeFi degen · DeSoc explorer, advisor · hosting ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "luo".map { TokenCharacterType.Channel } +
-                " · writing ".map { TokenCharacterType.Character } +
-                "0xluo.eth.limo".map { TokenCharacterType.Url } +
-                listOf(TokenCharacterType.Eof)
+            "/".map { TokenCharacterType.Channel } +
+            "luo".map { TokenCharacterType.Channel } +
+            " · writing ".map { TokenCharacterType.Character } +
+            "0xluo.eth.limo".map { TokenCharacterType.Url } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
-            result
+            result,
         )
     }
 
@@ -274,17 +273,16 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "Mask.io".map { TokenCharacterType.Url } +
-                " / ".map { TokenCharacterType.Character } +
-                "suji_yan".map { TokenCharacterType.TwitterUser } +
-                ".twitter".map { TokenCharacterType.TwitterUser } +
-                " checkout ".map { TokenCharacterType.Character } +
-                "/".map { TokenCharacterType.Channel } +
-                "firefly-garden".map { TokenCharacterType.Channel } +
-                listOf(TokenCharacterType.Eof)
+            " / ".map { TokenCharacterType.Character } +
+            "suji_yan".map { TokenCharacterType.TwitterUser } +
+            ".twitter".map { TokenCharacterType.TwitterUser } +
+            " checkout ".map { TokenCharacterType.Character } +
+            "/".map { TokenCharacterType.Channel } +
+            "firefly-garden".map { TokenCharacterType.Channel } +
+            listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,
-            result
+            result,
         )
     }
-
 }

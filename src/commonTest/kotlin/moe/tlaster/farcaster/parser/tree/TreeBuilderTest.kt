@@ -1,9 +1,9 @@
 package moe.tlaster.farcaster.parser.tree
 
-import kotlin.test.Test
-import kotlin.test.assertEquals
 import moe.tlaster.farcaster.parser.tokenizer.StringReader
 import moe.tlaster.farcaster.parser.tokenizer.Tokenizer
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 class TreeBuilderTest {
 

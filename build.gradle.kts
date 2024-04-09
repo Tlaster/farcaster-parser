@@ -19,6 +19,7 @@ repositories {
 }
 
 kotlin {
+    applyDefaultHierarchyTemplate()
     jvm {
         compilations.all {
             kotlinOptions.jvmTarget = "1.8"
@@ -39,13 +40,15 @@ kotlin {
     //        nodejs()
     //        d8()
     //    }
-    ios()
+    iosArm64()
+    iosX64()
     iosSimulatorArm64()
     macosX64()
     macosArm64()
-    watchos()
+    watchosX64()
+    watchosArm64()
+    watchosArm32()
     watchosSimulatorArm64()
-    tvos()
     tvosSimulatorArm64()
     mingwX64()
     linuxX64()
