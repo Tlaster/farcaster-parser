@@ -16,4 +16,6 @@ data class TwitterUserNode(val value: String) : Node
 
 data class LensterUserNode(val value: String) : Node
 
-internal data object EofNode : Node
+data object EofNode : Node
+
+data class HashTagNode(val value: String) : Node

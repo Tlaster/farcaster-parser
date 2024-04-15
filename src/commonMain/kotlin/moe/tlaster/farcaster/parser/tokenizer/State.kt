@@ -47,6 +47,7 @@ internal data object DataState : State {
             '@' -> tokenizer.switch(AtState)
             '/' -> tokenizer.switch(SlashState)
             '.' -> tokenizer.switch(DotState)
+            '#' -> tokenizer.switch(HashState)
             eof -> tokenizer.emit(TokenCharacterType.Eof, reader.position)
             else -> tokenizer.emit(TokenCharacterType.Character, reader.position)
         }
@@ -271,6 +272,40 @@ internal data object HeadlessUrlState : State {
 
             else -> {
                 tokenizer.emit(TokenCharacterType.Url, reader.position)
+            }
+        }
+    }
+}
+
+internal data object HashState : State {
+    override fun read(tokenizer: Tokenizer, reader: Reader) {
+        when (val current = reader.consume()) {
+            in asciiAlphanumeric -> {
+                tokenizer.emit(TokenCharacterType.HashTag, reader.position - 1)
+                tokenizer.switch(HashTagState)
+                reader.pushback()
+            }
+
+            else -> {
+                tokenizer.emit(TokenCharacterType.Character, reader.position - 1)
+                tokenizer.switch(DataState)
+                reader.pushback()
+            }
+        }
+    }
+}
+
+internal data object HashTagState : State {
+    override fun read(tokenizer: Tokenizer, reader: Reader) {
+        when (val current = reader.consume()) {
+            in asciiAlphanumeric -> {
+                tokenizer.emit(TokenCharacterType.HashTag, reader.position)
+            }
+
+            else -> {
+                tokenizer.accept()
+                tokenizer.switch(DataState)
+                reader.pushback()
             }
         }
     }

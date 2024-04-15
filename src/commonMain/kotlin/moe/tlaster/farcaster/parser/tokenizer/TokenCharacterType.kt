@@ -9,6 +9,7 @@ internal enum class TokenCharacterType {
     Channel,
     TwitterUser,
     LensterUser,
+    HashTag,
 
     UnKnown,
 }

@@ -44,6 +44,25 @@ class TokenizerTest {
     }
 
     @Test
+    fun testHashtag() {
+        val tokenizer = Tokenizer()
+        val content = "#test"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            listOf(
+                TokenCharacterType.HashTag,
+                TokenCharacterType.HashTag,
+                TokenCharacterType.HashTag,
+                TokenCharacterType.HashTag,
+                TokenCharacterType.HashTag,
+                TokenCharacterType.Eof,
+            ),
+            result,
+        )
+    }
+
+    @Test
     fun testChannel() {
         val tokenizer = Tokenizer()
         val content = "/test"
@@ -241,7 +260,7 @@ class TokenizerTest {
     @Test
     fun testMixed() {
         val tokenizer = Tokenizer()
-        val content = "test test.com @test \$test /test test.twitter test.lens https://test.com test.host.com"
+        val content = "test test.com @test \$test /test test.twitter test.lens https://test.com test.host.com #test"
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         val expected = "test ".map { TokenCharacterType.Character } +
@@ -265,6 +284,9 @@ class TokenizerTest {
             "https://test.com".map { TokenCharacterType.Url } +
             " ".map { TokenCharacterType.Character } +
             "test.host.com".map { TokenCharacterType.Url } +
+            " ".map { TokenCharacterType.Character } +
+            "#".map { TokenCharacterType.HashTag } +
+            "test".map { TokenCharacterType.HashTag } +
             listOf(TokenCharacterType.Eof)
         assertContentEquals(
             expected,

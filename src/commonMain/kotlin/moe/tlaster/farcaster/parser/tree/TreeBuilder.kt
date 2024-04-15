@@ -36,6 +36,7 @@ internal class TreeBuilder {
             TokenCharacterType.LensterUser -> LensterUserNode(reader.readAt(currentStart, i - currentStart))
             TokenCharacterType.Eof -> EofNode
             TokenCharacterType.UnKnown -> TextNode(reader.readAt(currentStart, i - currentStart))
+            TokenCharacterType.HashTag -> HashTagNode(reader.readAt(currentStart, i - currentStart))
         }
     }
 }
