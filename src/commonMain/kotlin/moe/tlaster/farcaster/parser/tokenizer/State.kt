@@ -145,7 +145,7 @@ internal data object UserNameState : State {
             asciiAlphanumericUnderscore + '.'
         } else {
             asciiAlphanumericUnderscore
-        }
+        } + '-'
         when (val current = reader.consume()) {
             in userNameTokens -> {
                 tokenizer.emit(TokenCharacterType.UserName, reader.position)
