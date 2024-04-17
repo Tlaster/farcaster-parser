@@ -118,25 +118,25 @@ class TokenizerTest {
     }
 
     @Test
-    fun testTwitterUserName() {
+    fun testCustomUserName() {
         val tokenizer = Tokenizer()
         val content = "test.twitter"
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         assertContentEquals(
             listOf(
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
-                TokenCharacterType.TwitterUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
+                TokenCharacterType.CustomUser,
                 TokenCharacterType.Eof,
             ),
             result,
@@ -144,22 +144,45 @@ class TokenizerTest {
     }
 
     @Test
-    fun testLensterUserName() {
+    fun testNonCustomUserName() {
         val tokenizer = Tokenizer()
-        val content = "test.lens"
+        val content = ".twitter"
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         assertContentEquals(
             listOf(
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
-                TokenCharacterType.LensterUser,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Eof,
+            ),
+            result,
+        )
+    }
+
+    @Test
+    fun testNonCustomUserName2() {
+        val tokenizer = Tokenizer()
+        val content = "1 .twitter"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            listOf(
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
                 TokenCharacterType.Eof,
             ),
             result,
@@ -275,11 +298,11 @@ class TokenizerTest {
             "/".map { TokenCharacterType.Channel } +
             "test".map { TokenCharacterType.Channel } +
             " ".map { TokenCharacterType.Character } +
-            "test".map { TokenCharacterType.TwitterUser } +
-            ".twitter".map { TokenCharacterType.TwitterUser } +
+            "test".map { TokenCharacterType.CustomUser } +
+            ".twitter".map { TokenCharacterType.CustomUser } +
             " ".map { TokenCharacterType.Character } +
-            "test".map { TokenCharacterType.LensterUser } +
-            ".lens".map { TokenCharacterType.LensterUser } +
+            "test".map { TokenCharacterType.CustomUser } +
+            ".lens".map { TokenCharacterType.CustomUser } +
             " ".map { TokenCharacterType.Character } +
             "https://test.com".map { TokenCharacterType.Url } +
             " ".map { TokenCharacterType.Character } +
@@ -321,8 +344,8 @@ class TokenizerTest {
         assertEquals(content.length, result.size - 1)
         val expected = "Mask.io".map { TokenCharacterType.Url } +
             " / ".map { TokenCharacterType.Character } +
-            "suji_yan".map { TokenCharacterType.TwitterUser } +
-            ".twitter".map { TokenCharacterType.TwitterUser } +
+            "suji_yan".map { TokenCharacterType.CustomUser } +
+            ".twitter".map { TokenCharacterType.CustomUser } +
             " checkout ".map { TokenCharacterType.Character } +
             "/".map { TokenCharacterType.Channel } +
             "firefly-garden".map { TokenCharacterType.Channel } +

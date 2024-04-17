@@ -9,7 +9,7 @@ plugins {
 
 val libName = "farcaster-parser"
 val libGroup = "moe.tlaster"
-val libVersion = "0.1.3"
+val libVersion = "0.1.4"
 
 group = libGroup
 version = libVersion

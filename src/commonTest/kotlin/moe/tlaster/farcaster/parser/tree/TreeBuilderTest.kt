@@ -38,7 +38,7 @@ class TreeBuilderTest {
     }
 
     @Test
-    fun testTwitterUser() {
+    fun testCustomUser() {
         val tokenizer = Tokenizer()
         val content = "test.twitter"
         val result = tokenizer.parse(StringReader(content))
@@ -46,22 +46,7 @@ class TreeBuilderTest {
         val builderResult = builder.build(StringReader(content), result)
         assertEquals(
             listOf(
-                TwitterUserNode("test.twitter"),
-            ),
-            builderResult,
-        )
-    }
-
-    @Test
-    fun testLensterUser() {
-        val tokenizer = Tokenizer()
-        val content = "test.lens"
-        val result = tokenizer.parse(StringReader(content))
-        val builder = TreeBuilder()
-        val builderResult = builder.build(StringReader(content), result)
-        assertEquals(
-            listOf(
-                LensterUserNode("test.lens"),
+                CustomUserNode("test.twitter"),
             ),
             builderResult,
         )
@@ -111,9 +96,9 @@ class TreeBuilderTest {
                 TextNode(" "),
                 ChannelNode("/test"),
                 TextNode(" "),
-                TwitterUserNode("test.twitter"),
+                CustomUserNode("test.twitter"),
                 TextNode(" "),
-                LensterUserNode("test.lens"),
+                CustomUserNode("test.lens"),
                 TextNode(" "),
                 UrlNode("https://test.com"),
                 TextNode(" "),

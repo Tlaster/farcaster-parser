@@ -32,8 +32,7 @@ internal class TreeBuilder {
             TokenCharacterType.Cash -> CashNode(reader.readAt(currentStart, i - currentStart))
             TokenCharacterType.UserName -> UserNode(reader.readAt(currentStart, i - currentStart))
             TokenCharacterType.Channel -> ChannelNode(reader.readAt(currentStart, i - currentStart))
-            TokenCharacterType.TwitterUser -> TwitterUserNode(reader.readAt(currentStart, i - currentStart))
-            TokenCharacterType.LensterUser -> LensterUserNode(reader.readAt(currentStart, i - currentStart))
+            TokenCharacterType.CustomUser -> CustomUserNode(reader.readAt(currentStart, i - currentStart))
             TokenCharacterType.Eof -> EofNode
             TokenCharacterType.UnKnown -> TextNode(reader.readAt(currentStart, i - currentStart))
             TokenCharacterType.HashTag -> HashTagNode(reader.readAt(currentStart, i - currentStart))

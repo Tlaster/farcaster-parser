@@ -1,7 +1,8 @@
 package moe.tlaster.farcaster.parser.tokenizer
 
 internal class Tokenizer(
-    val enableDotInUserName: Boolean = true,
+    val enableDotInUserName: Boolean = false,
+    val customUserSuffix: List<String> = listOf("twitter", "lens", "github", "telegram", "eth"),
 ) {
     private var currentState: State = DataState
     private lateinit var tokens: ArrayList<TokenCharacterType>

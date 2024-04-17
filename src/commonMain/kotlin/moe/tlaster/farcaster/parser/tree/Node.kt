@@ -12,9 +12,7 @@ data class UserNode(val value: String) : Node
 
 data class ChannelNode(val value: String) : Node
 
-data class TwitterUserNode(val value: String) : Node
-
-data class LensterUserNode(val value: String) : Node
+data class CustomUserNode(val value: String) : Node
 
 data object EofNode : Node
 

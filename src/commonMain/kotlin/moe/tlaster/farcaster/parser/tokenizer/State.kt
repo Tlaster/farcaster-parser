@@ -233,22 +233,20 @@ private fun findBackwardValidUrl(reader: Reader): Int {
 
 internal data object DotState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
-        if (reader.isFollowedBy("twitter", ignoreCase = true)) {
-            val start = findBackwardSpace(reader)
-            tokenizer.emitRange(TokenCharacterType.TwitterUser, start, reader.position + "twitter".length)
-            reader.consume("twitter".length)
-            tokenizer.switch(DataState)
-        } else if (reader.isFollowedBy("lens", ignoreCase = true)) {
-            val start = findBackwardSpace(reader)
-            tokenizer.emitRange(TokenCharacterType.LensterUser, start, reader.position + "lens".length)
-            reader.consume("lens".length)
-            tokenizer.switch(DataState)
-        } else {
-            // treat as headless url
-            val start = findBackwardValidUrl(reader)
-            tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
-            tokenizer.switch(HeadlessUrlState)
+        if (reader.position > 1 && reader.readAt(reader.position - 2) !in emptyChar) {
+            tokenizer.customUserSuffix.forEach {
+                if (reader.isFollowedBy(it, ignoreCase = true)) {
+                    val start = findBackwardSpace(reader)
+                    tokenizer.emitRange(TokenCharacterType.CustomUser, start, reader.position + it.length)
+                    reader.consume(it.length)
+                    tokenizer.switch(DataState)
+                    return
+                }
+            }
         }
+        val start = findBackwardValidUrl(reader)
+        tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
+        tokenizer.switch(HeadlessUrlState)
     }
 }
 

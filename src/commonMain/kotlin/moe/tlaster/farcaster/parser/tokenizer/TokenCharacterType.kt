@@ -7,8 +7,7 @@ internal enum class TokenCharacterType {
     Cash,
     UserName,
     Channel,
-    TwitterUser,
-    LensterUser,
+    CustomUser,
     HashTag,
 
     UnKnown,
