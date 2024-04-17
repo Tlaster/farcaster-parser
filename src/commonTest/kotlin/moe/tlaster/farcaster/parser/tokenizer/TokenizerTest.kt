@@ -94,6 +94,18 @@ class TokenizerTest {
     }
 
     @Test
+    fun testNotChannel2() {
+        val tokenizer = Tokenizer()
+        val content = "/-test"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            content.map { TokenCharacterType.Character } + TokenCharacterType.Eof,
+            result,
+        )
+    }
+
+    @Test
     fun testChannel2() {
         val tokenizer = Tokenizer()
         val content = "/test-test"
@@ -113,6 +125,20 @@ class TokenizerTest {
                 TokenCharacterType.Channel,
                 TokenCharacterType.Eof,
             ),
+            result,
+        )
+    }
+
+    @Test
+    fun testChannel3() {
+        val tokenizer = Tokenizer()
+        val content = "/test."
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            "/test".map { TokenCharacterType.Channel } +
+                ".".map { TokenCharacterType.Character } +
+                TokenCharacterType.Eof,
             result,
         )
     }

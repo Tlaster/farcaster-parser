@@ -162,7 +162,7 @@ internal data object UserNameState : State {
 
 internal data object SlashState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
-        if (prevIsSpace(reader)) {
+        if (prevIsSpace(reader) && !reader.isFollowedBy("-")) {
             when (val current = reader.consume()) {
                 in asciiAlphanumericUnderscoreDash -> {
                     tokenizer.emit(TokenCharacterType.Channel, reader.position - 1)
@@ -186,10 +186,8 @@ internal data object SlashState : State {
 internal data object ChannelNameState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         when (val current = reader.consume()) {
-            in emptyChar + eof -> {
-                tokenizer.accept()
-                tokenizer.switch(DataState)
-                reader.pushback()
+            in asciiAlphanumericUnderscoreDash -> {
+                tokenizer.emit(TokenCharacterType.Channel, reader.position)
             }
 
             '/' -> {
@@ -201,7 +199,9 @@ internal data object ChannelNameState : State {
             }
 
             else -> {
-                tokenizer.emit(TokenCharacterType.Channel, reader.position)
+                tokenizer.accept()
+                tokenizer.switch(DataState)
+                reader.pushback()
             }
         }
     }
@@ -244,9 +244,14 @@ internal data object DotState : State {
                 }
             }
         }
-        val start = findBackwardValidUrl(reader)
-        tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
-        tokenizer.switch(HeadlessUrlState)
+        if (reader.readAt(reader.position) in asciiAlphanumeric) {
+            val start = findBackwardValidUrl(reader)
+            tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
+            tokenizer.switch(HeadlessUrlState)
+        } else {
+            tokenizer.emit(TokenCharacterType.Character, reader.position)
+            tokenizer.switch(DataState)
+        }
     }
 }
 
