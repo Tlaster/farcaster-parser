@@ -41,6 +41,10 @@ internal class Tokenizer(
         }
     }
 
+    fun readAt(position: Int): TokenCharacterType {
+        return tokens[position]
+    }
+
     fun accept() {
     }
 }

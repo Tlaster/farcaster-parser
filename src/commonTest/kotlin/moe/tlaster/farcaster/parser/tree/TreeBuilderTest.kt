@@ -1,9 +1,11 @@
 package moe.tlaster.farcaster.parser.tree
 
+import moe.tlaster.farcaster.parser.FarcasterParser
 import moe.tlaster.farcaster.parser.tokenizer.StringReader
 import moe.tlaster.farcaster.parser.tokenizer.Tokenizer
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertIs
 
 class TreeBuilderTest {
 
@@ -106,5 +108,17 @@ class TreeBuilderTest {
             ),
             builderResult,
         )
+    }
+
+    @Test
+    fun testNotCash() {
+        val parser = FarcasterParser()
+        val url = "$123"
+        val content = "test $url."
+        val result = parser.parse(content)
+        assertEquals(1, result.size)
+        val node = result[0]
+        assertIs<TextNode>(node)
+        assertEquals(content, node.value)
     }
 }
