@@ -261,7 +261,7 @@ internal data object DotState : State {
                 }
             }
         }
-        if (reader.readAt(reader.position) in asciiAlphanumeric) {
+        if (reader.position > 1 && reader.readAt(reader.position - 2) !in emptyChar && reader.readAt(reader.position) in asciiAlphanumeric) {
             val start = findBackwardValidUrl(reader)
             tokenizer.emitRange(TokenCharacterType.Url, start, reader.position)
             tokenizer.switch(HeadlessUrlState)

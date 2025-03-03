@@ -121,4 +121,15 @@ class TreeBuilderTest {
         assertIs<TextNode>(node)
         assertEquals(content, node.value)
     }
+
+    @Test
+    fun testNotUrl() {
+        val parser = FarcasterParser()
+        val content = "In 2024, around 10% of Anguilla’s GDP will come from fees for its .ai domain name."
+        val result = parser.parse(content)
+        assertEquals(1, result.size)
+        val node = result[0]
+        assertIs<TextNode>(node)
+        assertEquals(content, node.value)
+    }
 }
