@@ -90,7 +90,7 @@ internal data object UrlState : State {
 internal data object DollarState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         when (val current = reader.consume()) {
-            in asciiAlphanumeric -> {
+            in asciiAlpha -> {
                 tokenizer.emit(TokenCharacterType.Cash, reader.position - 1)
                 tokenizer.switch(CashTagState)
                 reader.pushback()

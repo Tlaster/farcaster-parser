@@ -443,4 +443,16 @@ class TokenizerTest {
             result,
         )
     }
+
+    @Test
+    fun testNumberDollar() {
+        val tokenizer = Tokenizer()
+        val content = "test $123test"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            content.map { TokenCharacterType.Character } + TokenCharacterType.Eof,
+            result,
+        )
+    }
 }
