@@ -455,4 +455,29 @@ class TokenizerTest {
             result,
         )
     }
+
+    @Test
+    fun testDotAtUserNameLast() {
+        val tokenizer = Tokenizer()
+        val content = "@test. test"
+        val result = tokenizer.parse(StringReader(content))
+        assertEquals(content.length, result.size - 1)
+        assertContentEquals(
+            listOf(
+                TokenCharacterType.UserName,
+                TokenCharacterType.UserName,
+                TokenCharacterType.UserName,
+                TokenCharacterType.UserName,
+                TokenCharacterType.UserName,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Character,
+                TokenCharacterType.Eof,
+            ),
+            result,
+        )
+    }
 }

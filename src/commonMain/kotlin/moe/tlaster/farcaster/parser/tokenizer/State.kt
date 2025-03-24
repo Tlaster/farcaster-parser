@@ -165,7 +165,18 @@ internal data object UserNameState : State {
         } + '-'
         when (val current = reader.consume()) {
             in userNameTokens -> {
-                tokenizer.emit(TokenCharacterType.UserName, reader.position)
+                if (current == '.') {
+                    // require next char to be in asciiAlphanumeric
+                    if (!reader.hasNext() || reader.next() !in asciiAlphanumeric) {
+                        tokenizer.accept()
+                        tokenizer.switch(DataState)
+                        reader.pushback()
+                    } else {
+                        tokenizer.emit(TokenCharacterType.UserName, reader.position)
+                    }
+                } else {
+                    tokenizer.emit(TokenCharacterType.UserName, reader.position)
+                }
             }
 
             else -> {
