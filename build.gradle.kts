@@ -1,15 +1,13 @@
-import com.vanniktech.maven.publish.SonatypeHost
-
 plugins {
-    kotlin("multiplatform") version "1.9.23"
-    id("org.jetbrains.kotlinx.kover") version "0.7.3"
-    id("com.vanniktech.maven.publish") version "0.25.3"
+    kotlin("multiplatform") version "2.1.0"
+    id("org.jetbrains.kotlinx.kover") version "0.9.3"
+    id("com.vanniktech.maven.publish") version "0.34.0"
     id("org.jlleitschuh.gradle.ktlint") version "11.5.1"
 }
 
 val libName = "farcaster-parser"
 val libGroup = "moe.tlaster"
-val libVersion = "0.1.10"
+val libVersion = "0.1.11-SNAPSHOT"
 
 group = libGroup
 version = libVersion
@@ -30,10 +28,10 @@ kotlin {
             }
         }
     }
-    js {
-        browser()
-        nodejs()
-    }
+//    js {
+//        browser()
+//        nodejs()
+//    }
     //    @OptIn(ExperimentalWasmDsl::class)
     //    wasm {
     //        browser()
@@ -53,6 +51,8 @@ kotlin {
     mingwX64()
     linuxX64()
     linuxArm64()
+    wasmJs()
+    wasmWasi()
 
     sourceSets {
         val commonMain by getting
@@ -65,7 +65,7 @@ kotlin {
 }
 
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.S01)
+    publishToMavenCentral(automaticRelease = true)
     signAllPublications()
     coordinates(
         groupId = libGroup,

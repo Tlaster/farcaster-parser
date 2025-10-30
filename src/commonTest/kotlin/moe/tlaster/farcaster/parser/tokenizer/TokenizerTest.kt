@@ -451,7 +451,9 @@ class TokenizerTest {
         val result = tokenizer.parse(StringReader(content))
         assertEquals(content.length, result.size - 1)
         assertContentEquals(
-            content.map { TokenCharacterType.Character } + TokenCharacterType.Eof,
+            "test ".map { TokenCharacterType.Character } +
+                "$123test".map { TokenCharacterType.Cash } +
+                    TokenCharacterType.Eof,
             result,
         )
     }
