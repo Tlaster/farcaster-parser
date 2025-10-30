@@ -453,7 +453,7 @@ class TokenizerTest {
         assertContentEquals(
             "test ".map { TokenCharacterType.Character } +
                 "$123test".map { TokenCharacterType.Cash } +
-                    TokenCharacterType.Eof,
+                TokenCharacterType.Eof,
             result,
         )
     }

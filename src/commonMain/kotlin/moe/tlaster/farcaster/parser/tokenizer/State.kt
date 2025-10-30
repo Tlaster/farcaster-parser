@@ -21,30 +21,28 @@ private val marks = "-._~:/?#[]@!\$&'()*+,;=".toList()
 private fun Int.isFullWidthCodePoint(): Boolean {
     val cp = this
     if (cp < 0) return false
-    return (cp in 0x1100..0x115F) ||            // Hangul Jamo
-            (cp == 0x2329 || cp == 0x232A) ||    // 〈 〉
-            (cp in 0x2E80..0xA4CF && cp != 0x303F) || // CJK radicals/strokes… Yi (exclude 0x303F)
-            (cp in 0xAC00..0xD7A3) ||            // Hangul Syllables
-            (cp in 0xF900..0xFAFF) ||            // CJK Compatibility Ideographs
-            (cp in 0xFE10..0xFE19) ||            // Vertical forms
-            (cp in 0xFE30..0xFE6F) ||            // CJK Compatibility Forms… Small Form Variants
-            (cp in 0xFF01..0xFF60) ||            // Fullwidth ASCII variants etc.
-            (cp in 0xFFE0..0xFFE6) ||            // Fullwidth symbols
-            (cp in 0x1B000..0x1B001) ||          // Kana Supplement
-            (cp in 0x1F200..0x1F251) ||          // Enclosed Ideographic Supplement
-            (cp in 0x20000..0x3FFFD)             // CJK Unified Ideographs Ext. B–(up to T)
+    return (cp in 0x1100..0x115F) || // Hangul Jamo
+        (cp == 0x2329 || cp == 0x232A) || // 〈 〉
+        (cp in 0x2E80..0xA4CF && cp != 0x303F) || // CJK radicals/strokes… Yi (exclude 0x303F)
+        (cp in 0xAC00..0xD7A3) || // Hangul Syllables
+        (cp in 0xF900..0xFAFF) || // CJK Compatibility Ideographs
+        (cp in 0xFE10..0xFE19) || // Vertical forms
+        (cp in 0xFE30..0xFE6F) || // CJK Compatibility Forms… Small Form Variants
+        (cp in 0xFF01..0xFF60) || // Fullwidth ASCII variants etc.
+        (cp in 0xFFE0..0xFFE6) || // Fullwidth symbols
+        (cp in 0x1B000..0x1B001) || // Kana Supplement
+        (cp in 0x1F200..0x1F251) || // Enclosed Ideographic Supplement
+        (cp in 0x20000..0x3FFFD) // CJK Unified Ideographs Ext. B–(up to T)
 }
 
-
 private fun Char.isFullWidthChar(): Boolean = this.code.isFullWidthCodePoint()
-
 
 private fun Int.isFullWidthSymbolCodePoint(): Boolean {
     val cp = this
     if (cp < 0) return false
 
     // CJK Symbols & Punctuation
-    if (cp in 0x3001..0x303D) return true  // 「」『』、《》、。 、、
+    if (cp in 0x3001..0x303D) return true // 「」『』、《》、。 、、
     // Vertical Forms
     if (cp in 0xFE10..0xFE19) return true
     // CJK Compatibility Forms
@@ -52,10 +50,10 @@ private fun Int.isFullWidthSymbolCodePoint(): Boolean {
     // Small Form Variants
     if (cp in 0xFE50..0xFE6F) return true
     // Fullwidth ASCII
-    if (cp in 0xFF01..0xFF0F) return true   // ！"#$%&'()*+,-./
-    if (cp in 0xFF1A..0xFF20) return true   // ：；＜＝＞？＠
-    if (cp in 0xFF3B..0xFF40) return true   // ［＼］＾＿`
-    if (cp in 0xFF5B..0xFF60) return true   // ｛｜｝～
+    if (cp in 0xFF01..0xFF0F) return true // ！"#$%&'()*+,-./
+    if (cp in 0xFF1A..0xFF20) return true // ：；＜＝＞？＠
+    if (cp in 0xFF3B..0xFF40) return true // ［＼］＾＿`
+    if (cp in 0xFF5B..0xFF60) return true // ｛｜｝～
     return false
 }
 
@@ -157,7 +155,6 @@ internal data object DollarState : State {
     }
 }
 
-
 internal data object DigitCashState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
         val current = reader.consume()
@@ -225,7 +222,6 @@ internal data object CJKCashTagState : State {
     }
 }
 
-
 internal data object CashTagState : State {
 
     override fun read(tokenizer: Tokenizer, reader: Reader) {
@@ -267,7 +263,6 @@ internal data object CashTagState : State {
         }
     }
 }
-
 
 internal data object AtState : State {
     override fun read(tokenizer: Tokenizer, reader: Reader) {
